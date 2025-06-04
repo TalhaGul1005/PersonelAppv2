@@ -1,0 +1,43 @@
+﻿@using EntityLayer.DTOs
+@model PTOListDto
+
+@if (TempData["Message"] != null)
+{
+    @section message {
+    @await Html.PartialAsync("_message", (string)TempData["Message"])
+}
+}
+
+<div class="row mt-3">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10">
+
+        @foreach (var item in Model.PTOList.Join(Model.StaffList, p => p.StaffId, z => z.Id, (p, z) => new { p, z }))
+        {
+            <div class="card mb-3 mt-3" style="max-width: auto;">
+                <div class="row no-gutters">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-11">
+                        <div class="card-body">
+                            <h7 class="card-title"><b>Sicil No:</b> @item.z.Id</h7><hr />
+                            <h7 class="card-title"><b>Ad Soyad:</b> @(item.z.Name + " " + item.z.SirName)</h7><hr />
+                            <h7 class="card-title"><b>İzin Başlangıç Tarihi:</b> @item.p.StartTime</h7><hr />
+                            <h7 class="card-title"><b>İzin Bitiş Tarihi:</b> @item.p.FinishTime</h7><hr />
+                            <h7 class="card-title"><b>Kullanılan İzin:</b> @item.p.Usedleave</h7><hr />
+                             <form asp-controller="PTO" asp-action="Delete" method="post" style="display:inline">
+                                <input type="hidden" name="id" value="@item.p.Id" />
+                                <button type="submit" class="btn btn-danger">Sil</button>
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+    <div class="col-md-1">
+    </div>
+</div>
+
