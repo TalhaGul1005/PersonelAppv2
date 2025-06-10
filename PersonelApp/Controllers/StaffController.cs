@@ -26,17 +26,19 @@ namespace PersonelApp.Controllers
         [HttpPost]
         public IActionResult Create(Staff t)
         {
-            try
+            if(!ModelState.IsValid) { return View(t); }
+
+            bool result = _staffService.AddStaff(t, out string m);
+
+            if (!result)
             {
-                _staffService.TAdd(t);
-                TempData["Message"] = $"Yeni Kişi Eklendi.";
-                return RedirectToAction("Index", "Home");
-            }
-            catch (Exception ex) 
-            {
-                ModelState.AddModelError("TCNo", ex.Message);
+                ModelState.AddModelError(string.Empty, m);
                 return View(t);
             }
+
+            TempData["Message"] = m;
+            return RedirectToAction("Index", "Home");
+            
         }
         [HttpPost]
         public IActionResult Delete(int StaffId) 

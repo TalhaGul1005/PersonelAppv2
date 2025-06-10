@@ -61,6 +61,8 @@ builder.Services.AddScoped<IPTOService, PTOManager>();
 builder.Services.AddScoped<IPTODal, EfPTODal>();
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IUserDal, EfUserDal>();
+builder.Services.AddScoped<IDepartmentService, DepartmentManager>();
+builder.Services.AddScoped<IDepartmentDal, EfDepartmentDal>();
 
 var app = builder.Build();
 

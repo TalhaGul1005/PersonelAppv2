@@ -7,6 +7,8 @@ using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.Repository;
 using EntityLayer.Concrete;
+using EntityLayer.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.EntityFramework
 {
@@ -38,5 +40,7 @@ namespace DataAccessLayer.EntityFramework
         {
             return _context.Staffs.FirstOrDefault(s => s.Id == id);
         }
+
+        
     }
 }

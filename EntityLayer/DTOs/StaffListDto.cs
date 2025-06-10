@@ -9,6 +9,9 @@ namespace EntityLayer.DTOs
 {
     public class StaffListDto
     {
+        public int Id;
+
         public List<Staff> StaffList { get; set; }
+        public List<Department> DepartmentList { get; set; }
     }
 }

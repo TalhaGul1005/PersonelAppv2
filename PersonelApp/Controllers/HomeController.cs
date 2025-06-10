@@ -14,13 +14,15 @@ namespace PersonelApp.Controllers
     public class HomeController : Controller
     {
         private readonly IStaffService _staffService;
-        public HomeController(IStaffService staffService) { _staffService = staffService; }
+        private readonly IDepartmentService _departmentService;
+        public HomeController(IStaffService staffService,IDepartmentService departmentService) { _staffService = staffService; _departmentService = departmentService; }
 
         public IActionResult Index()
         {
             var model = new StaffListDto
             {
-                StaffList = _staffService.GetList()
+                StaffList = _staffService.GetList(),
+                DepartmentList= _departmentService.GetList()
             };
             
             return View(model);

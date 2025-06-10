@@ -11,5 +11,6 @@ namespace BusinessLayer.Abstract
     {
         bool CheckTCNo(long TcNo);
         void Delete(int StaffId);
+        bool AddStaff(Staff t, out string m);
     }
 }

@@ -48,13 +48,6 @@ namespace PersonelApp.Controllers
         {
             if(!ModelState.IsValid) { return View(dto); }
 
-            var p = new PTO
-            {
-                StaffId = dto.StaffId,
-                StartTime = dto.StartTime,
-                FinishTime = dto.FinishTime
-            };
-
             bool result = _PTOService.AddPTO(dto, out string m);
 
             if (!result)

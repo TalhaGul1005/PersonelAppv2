@@ -1,16 +1,15 @@
 ﻿@using EntityLayer.DTOs
 @model StaffListDto
 
-@{
-    ViewData["Title"] = "Home Page";
+@if (TempData["Message"] != null)
+{
+    @section message {
+    @await Html.PartialAsync("_message", (string)TempData["Message"])
+}
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-@foreach (var item in Model.StaffList)
+@foreach (var item in Model.StaffList.Join(Model.DepartmentList,d=> d.DepartmentId, s=> s.Id,(d,s)=> new {d,s}))
+    
 {
         <div class="card mb-3" style="max-width: auto;">
             <div class="row g-0">
@@ -19,26 +18,27 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">@item.Id</h5>
-                        <h5 class="card-title">@(item.Name + " " + item.SirName)</h5>
-                        <p class="card-text">TC: @item.TCNo</p>
-                        <p class="card-text">İşe Başlama Tarihi: @item.StartTime</p>
-                        <p class="card-text">Yıllık İzin: @(item.LastYear + item.ThisYear)</p>
-                        <a type="button" class="btn btn-warning" asp-controller="PTO" asp-action="PTOForm" asp-route-id="@item.Id">İzin Gir</a>
-                        @* <a type="button" class="btn btn-warning" asp-controller="personel" asp-action="Edit" asp-route-id="@personel.PersonelId">Düzenle</a>
-                        <a type="button" class="btn btn-warning" asp-controller="personel" asp-action="EditFGY" asp-route-id="@personel.PersonelId">FGY Düzenle</a>
-                        *@
-                    @if (User.IsInRole("Admin")){
+                        <h5 class="card-title">@item.d.Id</h5>
+                        <h5 class="card-title">@(item.d.Name + " " + item.d.SirName)</h5>
+                        <p class="card-text">TC: @item.d.TCNo</p>
+                        <p class="card-text">İşe Başlama Tarihi: @item.d.StartTime</p>
+                        <p class="card-text">Yıllık İzin: @(item.d.LastYear + item.d.ThisYear)</p>
+                        <a type="button" class="btn btn-warning" asp-controller="PTO" asp-action="PTOForm" asp-route-id="@item.d.Id">İzin Gir</a>
+                        
+                    @if (User.IsInRole("Admin"))
+                    {
                         <form asp-controller="Staff" asp-action="Delete" method="post" style="display:inline">
-                            <input type="hidden" name="StaffId" value="@item.Id" />
+                            <input type="hidden" name="StaffId" value="@item.d.Id" />
                             <button type="submit" class="btn btn-danger">Sil</button>
                         </form> 
-                        }
+                    }
                     </div>
                 </div>
-                @* <div class="col-md-2">
-                    <p><b>Fakülte: </b>@personel.Fakulte.FakulteName<hr /><b>Bölüm: </b>@personel.Bolum.BolumName<hr /><b>Abd: </b>@personel.Abd.AbdName</p>
-                </div> *@
+
+            <div class="col-md-2">
+                <p><b>Fiili Görev Yeri: </b>@item.s.Name<hr />
+            </div>
+                   
 
 
             </div>
@@ -46,3 +46,5 @@
 
     
 }
+
+    
