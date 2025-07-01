@@ -1,24 +1,18 @@
-﻿using BusinessLayer.Abstract;
-using EntityLayer.Concrete;
-using Microsoft.AspNetCore.Mvc;
-using EntityLayer.DTOs;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using BLL.Repo;
+using BLL.Dto;
+using BLL.Services;
 
 namespace PersonelApp.Controllers
 {
     [Authorize]
     public class PTOController : Controller
     {
-        
-        
+        private readonly PTOService _PTOService;
+        private readonly StaffService _staffService;
 
-        
-
-
-        private readonly IPTOService _PTOService;
-        private readonly IStaffService _staffService;
-
-        public PTOController(IPTOService pTOService, IStaffService staffService )
+        public PTOController(PTOService pTOService, StaffService staffService)
         {
             _PTOService = pTOService;
             _staffService = staffService;

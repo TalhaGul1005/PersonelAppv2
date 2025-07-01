@@ -1,5 +1,5 @@
-﻿using DataAccessLayer.Concrete;
-using EntityLayer.Concrete;
+﻿using BLL.Data.DataContext;
+using BLL.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

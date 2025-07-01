@@ -1,6 +1,6 @@
-﻿using BusinessLayer.Abstract;
-using DataAccessLayer.Concrete;
-using EntityLayer.Concrete;
+﻿using BLL.Data.DataContext;
+using BLL.Data.Entities;
+using BLL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,9 +11,9 @@ namespace PersonelApp.Controllers
     [Authorize(Roles = "Admin")]
     public class StaffController : Controller
     {
-        private readonly IStaffService _staffService;
+        private readonly StaffService _staffService;
 
-        public StaffController(IStaffService staffService,Context context)
+        public StaffController(StaffService staffService,Context context)
         {
             _staffService = staffService;
         }

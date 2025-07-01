@@ -1,16 +1,18 @@
-﻿using BusinessLayer.Abstract;
-using EntityLayer.DTOs;
+﻿using BLL.Dto;
+using BLL.Repo;
+using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 using PersonelApp.Helpers;
+using PersonelApp.Models;
 
 namespace PersonelApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly UserService _userService;
         private readonly JwtHelper _jwtHelper;
 
-        public AccountController(IUserService userService, IConfiguration configuration)
+        public AccountController(UserService userService, IConfiguration configuration)
         {
             _userService = userService;
             _jwtHelper = new JwtHelper(configuration);

@@ -1,9 +1,7 @@
 using System.Text;
-using BusinessLayer.Abstract;
-using BusinessLayer.Concrete;
-using DataAccessLayer.Abstract;
-using DataAccessLayer.Concrete;
-using DataAccessLayer.EntityFramework;
+using BLL.Data.DataContext;
+using BLL.Repo;
+using BLL.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -55,14 +53,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IStaffService, StaffManager>();
-builder.Services.AddScoped<IStaffDal, EfStaffDal>();
-builder.Services.AddScoped<IPTOService, PTOManager>();
-builder.Services.AddScoped<IPTODal, EfPTODal>();
-builder.Services.AddScoped<IUserService, UserManager>();
-builder.Services.AddScoped<IUserDal, EfUserDal>();
-builder.Services.AddScoped<IDepartmentService, DepartmentManager>();
-builder.Services.AddScoped<IDepartmentDal, EfDepartmentDal>();
+builder.Services.AddScoped<DepartmentRepository>();
+builder.Services.AddScoped<PTORepository>();
+builder.Services.AddScoped<StaffRepository>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<DepartmentService>();
+builder.Services.AddScoped<PTOService>();
+builder.Services.AddScoped<StaffService>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
